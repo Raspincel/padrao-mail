@@ -10,7 +10,7 @@ export class Envelope {
    * Can be null if this envelope only contains other envelopes
    */
   protected message: Message | null = null;
-  
+
   /**
    * Map of sub-envelopes organized by condition code
    * Each key represents a condition, and the value is another envelope handling that condition
