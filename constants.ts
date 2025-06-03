@@ -1,0 +1,13 @@
+export enum CONDITIONS {
+  EMAIL_NOT_FOUND,
+  ACCOUNT_SUSPENDED,
+  WRONG_PASSWORD,
+  CAPTCHA_FAILED,
+  TOO_MANY_LOGIN_ATTEMPTS,
+  IP_BLOCKED,
+  LOCATION_ANOMALY, // User logging in from an unusual geographical location
+  DEVICE_UNAUTHORIZED, // Login from a device not recognized as trusted
+  ACCOUNT_DEACTIVATED_BY_USER,
+  EMAIL_DELIVERY_FAILED,
+  ACCOUNT_LOCKED_DUE_TO_FAILED_LOGINS,
+}
