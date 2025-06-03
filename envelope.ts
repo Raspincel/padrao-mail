@@ -3,10 +3,8 @@ import { Message } from "./message";
 export class Envelope {
   private message: Message;
   private envelopes: Map<number, Envelope>;
-  private id: number;
 
   constructor() {
-    this.id = Math.floor(Math.random() * 10000);
     this.envelopes = new Map();
   }
 

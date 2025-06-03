@@ -6,7 +6,9 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-const mailbox = new Mailbox();
+// You can create either a default mailbox or a form mailbox
+const mailbox = Mailbox.createFormMailbox("No condition matched your request");
+// const mailbox = new Mailbox(); // For default mailbox
 mailbox.sortEnvelopes();
 
 function collectNumbers() {
