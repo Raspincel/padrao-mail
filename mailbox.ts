@@ -49,15 +49,6 @@ export class Mailbox extends Envelope {
   }
 
   /**
-   * Legacy method maintained for backward compatibility
-   * Sorting is now handled automatically when adding messages
-   */
-  public sortEnvelopes(): void {
-    // This is now handled automatically when adding messages
-    // Method kept for backward compatibility
-  }
-
-  /**
    * Factory method that creates a mailbox with predefined messages for form validation
    * Contains common error messages for authentication and account-related issues
    * @param {string} defaultErrorMessage - Optional text for the default error message

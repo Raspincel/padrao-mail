@@ -90,7 +90,7 @@ export class Envelope {
       }
 
       // Replace current message if the new one has higher priority
-      if (newMessage.getPriority() > message.getPriority()) {
+      if (newMessage.getPriority() >= message.getPriority()) {
         message = newMessage;
       }
     }
