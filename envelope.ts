@@ -1,14 +1,19 @@
 import { Message } from "./message";
 
 export class Envelope {
-  private message: Message;
-  private envelopes: Map<number, Envelope>;
+  protected message: Message | null = null;
+  protected envelopes: Map<number, Envelope> = new Map();
+  protected defaultErrorMessage: Message | null = null;
 
-  constructor() {
-    this.envelopes = new Map();
+  constructor(defaultErrorMessage?: Message) {
+    this.defaultErrorMessage = defaultErrorMessage || null;
   }
 
-  public addMessage(message: Message) {
+  public setDefaultErrorMessage(message: Message): void {
+    this.defaultErrorMessage = message;
+  }
+
+  public addMessage(message: Message): void {
     const condition = message.shiftCondition();
 
     if (!condition) {
@@ -17,14 +22,14 @@ export class Envelope {
     }
 
     if (!this.envelopes.get(condition)) {
-      this.envelopes.set(condition, new Envelope());
+      this.envelopes.set(condition, new Envelope(this.defaultErrorMessage));
     }
 
     this.envelopes.get(condition).addMessage(message);
   }
 
-  public getHighestPriorityMessage(conditions: number[]): Message {
-    let message: Message = this.message;
+  public getHighestPriorityMessage(conditions: number[]): Message | null {
+    let message = this.message;
 
     for (const condition of conditions) {
       const envelope = this.envelopes.get(condition);
@@ -43,6 +48,6 @@ export class Envelope {
       }
     }
 
-    return message;
+    return message || this.defaultErrorMessage;
   }
 }

@@ -6,10 +6,7 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-// You can create either a default mailbox or a form mailbox
 const mailbox = Mailbox.createFormMailbox("No condition matched your request");
-// const mailbox = new Mailbox(); // For default mailbox
-mailbox.sortEnvelopes();
 
 function collectNumbers() {
   return new Promise<number[]>((resolve) => {
@@ -45,7 +42,11 @@ function collectNumbers() {
 async function processMailbox(numbers) {
   if (numbers.length > 0) {
     const message = mailbox.getHighestPriorityMessage(numbers);
-    console.log("Chosen message:", message.getValue());
+    if (message) {
+      console.log("Chosen message:", message.getValue());
+    } else {
+      console.log("No matching message found.");
+    }
   } else {
     console.log("No numbers were entered.");
   }
