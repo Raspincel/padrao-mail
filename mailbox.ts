@@ -8,20 +8,26 @@ import { Message } from "./message.js";
  */
 export class Mailbox extends Envelope {
   /**
+   * Default message to return when no matching message is found
+   * Used as a fallback response at the mailbox level
+   */
+  private defaultErrorMessage: Message;
+
+  /**
    * Creates a new Mailbox with specified messages and default error message
    * @param {Message[]} messages - Optional array of messages to add to the mailbox
    * @param {string} defaultErrorMessage - Optional text for the default error message
    */
   constructor(messages?: Message[], defaultErrorMessage?: string) {
+    // Initialize parent class
+    super();
+
     // Create default error message with lowest priority and no conditions
-    const errorMsg = new Message({
+    this.defaultErrorMessage = new Message({
       value: defaultErrorMessage || "No matching condition found",
       priority: 0,
       conditions: []
     });
-
-    // Initialize parent class with the error message
-    super(errorMsg);
 
     // Add provided messages or use example messages if none provided
     if (messages) {
@@ -46,6 +52,19 @@ export class Mailbox extends Envelope {
     for (const message of messages) {
       this.addMessage(message);
     }
+  }
+
+  /**
+   * Override to provide default error message fallback at mailbox level
+   * @param {number[]} conditions - Array of condition codes to match against
+   * @returns {Message} The highest priority matching message, or the default error message
+   */
+  public getHighestPriorityMessage(conditions: number[]): Message {
+    // Get message from parent class
+    const message = super.getHighestPriorityMessage(conditions);
+    
+    // Return found message or default error message
+    return message || this.defaultErrorMessage;
   }
 
   /**
