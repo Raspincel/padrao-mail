@@ -3,7 +3,7 @@ export class Message {
   private conditions: number[];
   private value: string;
 
-  constructor(value: string, priority: number, conditions: number[]) {
+  constructor({conditions, priority, value}: {value: string, priority: number, conditions: number[]}) {
     this.priority = priority;
     this.conditions = conditions;
     this.value = value;
